@@ -1,263 +1,376 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>RPL Application Form</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>IPRC KIGALI</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
   <style>
-    .form-label {
-      font-weight: 500;
-      margin-top: 10px;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-    .error-message {
-      color: #dc3545;
-      font-size: 0.875rem;
-      margin-top: 0.25rem;
+
+    body {
+      background-color: #f5f5f5;
+      line-height: 1.6;
     }
-    .success-alert {
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #1e3c5a;
+      color: #fff;
+      padding: 10px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar-left {
+      display: flex;
+      align-items: center;
+    }
+
+    .menu-toggle {
+      font-size: 24px;
+      cursor: pointer;
+      margin-right: 15px;
       display: none;
-      position: fixed;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 1050;
+    }
+
+    .logo {
+      font-weight: bold;
+      text-decoration: none;
+      color: white;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo img {
+      height: 30px;
+    }
+
+    .navbar-right {
+      display: flex;
+      gap: 15px;
+    }
+
+    .nav-link {
+      color: white;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: color 0.3s;
+    }
+
+    .nav-link:hover {
+      color: #e91e63;
+    }
+
+    .main-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .hero-section {
+      flex: 2;
       min-width: 300px;
-      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+      background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://via.placeholder.com/1000x500');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      padding: 40px;
+      text-align: center;
+      border-radius: 5px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
-    .loading-spinner {
-      display: none;
-      margin-left: 10px;
+
+    .course-tag {
+      background-color: #0e3a66;
+      color: white;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .hero-title {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .application-info,
+    .application-instructions,
+    .login-info {
+      margin-bottom: 15px;
+      font-size: 16px;
+    }
+
+    .create-account-btn {
+      background-color: #0e3a66;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      margin-top: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      text-decoration: none;
+    }
+
+    .create-account-btn:hover {
+      background-color: #007bb2;
+    }
+
+    .contact-section {
+      flex: 1;
+      min-width: 300px;
+      background-color: #0e3a66;
+      color: white;
+      padding: 30px;
+      border-radius: 5px;
+      text-align: left;
+    }
+
+    .contact-title {
+      font-size: 24px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 15px;
+      font-size: 16px;
+    }
+
+    .contact-item i {
+      color: #ffffff;
+    }
+
+    .contact-section hr {
+      border: 0;
+      border-top: 1px solid #ccc;
+      margin-top: 20px;
+    }
+
+    .footer {
+      background-color: #1e3c5a;
+      color: white;
+      padding: 30px 20px;
+      margin-top: 30px;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    .footer-column {
+      flex: 1;
+      min-width: 200px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .footer-title {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    @media (max-width: 1024px) {
+      .hero-title {
+        font-size: 20px;
+      }
+
+      .application-info,
+      .application-instructions,
+      .login-info {
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .main-container {
+        flex-direction: column;
+        padding: 15px;
+      }
+
+      .hero-section,
+      .contact-section {
+        width: 100%;
+        padding: 25px;
+      }
+
+      .hero-title {
+        font-size: 20px;
+      }
+
+      .navbar-right {
+        display: none;
+        flex-direction: column;
+        background-color: #1e3c5a;
+        padding: 10px;
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        border-radius: 5px;
+      }
+
+      .navbar-right.active {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .footer-container {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-section {
+        padding: 20px;
+      }
+
+      .course-tag {
+        font-size: 12px;
+      }
+
+      .hero-title {
+        font-size: 18px;
+      }
+
+      .application-info,
+      .application-instructions,
+      .login-info {
+        font-size: 13px;
+      }
+
+      .contact-item {
+        font-size: 14px;
+        flex-wrap: wrap;
+      }
+
+      .contact-section {
+        padding: 20px;
+      }
+
+      .create-account-btn {
+        font-size: 13px;
+        padding: 8px 16px;
+      }
     }
   </style>
 </head>
-<body class="bg-light">
-  <!-- Success Alert -->
-  <div class="alert alert-success alert-dismissible fade show success-alert" id="successAlert" role="alert">
-    <span id="successMessage"></span>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="navbar-left">
+      <div class="menu-toggle">
+        <i class="fas fa-bars"></i>
+      </div>
+      <a href="#" class="logo">
+        <img src="rplogo.png" alt="IPRC Kigali Logo" />
+        RP KIGALI College
+      </a>
+    </div>
+   <div class="navbar-right">
+      <a href="index.php" class="nav-link"><i class="fas fa-home"></i><span>Home</span></a>
+      <a href="about.php" class="nav-link"><i class="fas fa-info-circle"></i><span>About</span></a>
+      <!--<a href="contact.html" class="nav-link"><i class="fas fa-envelope"></i><span>Contact</span></a>
+      <a href="#" class="nav-link"><i class="fas fa-sign-in-alt"></i><span>Signin</span></a>
+  -->
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="main-container">
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="course-tag">
+        <i class="fas fa-book"></i> RPL (Recognition of Prior Learning) Application
+      </div>
+      <h1 class="hero-title">
+        RP Kigali College, in partnership with Rwanda TVET Board through the Skills Development Fund (SDF), invites applicants for Recognition of Prior Learning (RPL) in Masonry and Domestic Electricity Installation.
+      </h1>
+      <div class="application-info">
+        Applications are open until <strong>30<sup>th</sup> May 2025</strong>. Submit online or deliver hard copies to RP Kigali College.
+      </div>
+      <div class="application-instructions">
+        Candidates must be Rwandan or residents, at least 18 years old, with 2+ years of experience. Being a member of a registered trade union or employer’s association is an added value.
+      </div>
+      <div class="login-info">
+        All assessment, certification, lunch, and transport costs will be covered by RP Kigali College through the SDF project.
+      </div>
+      <a href="ApplicationForm.php" class="create-account-btn">
+        <i class="fas fa-user-pen"></i> ApplyNow
+      </a>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+      <h2 class="contact-title">Contact Information</h2>
+      <div class="contact-item">
+        <i class="fas fa-map-marker-alt"></i>
+        <span>RP Head Office, IPRC KIGALI</span>
+      </div>
+      <div class="contact-item">
+        <i class="fas fa-phone"></i>
+        <span>+250 788 690 794</span>
+      </div>
+      <div class="contact-item">
+        <i class="fas fa-phone"></i>
+        <span>+250 739 477 867</span>
+      </div>
+      <div class="contact-item">
+        <i class="fas fa-envelope"></i>
+        <span>support@iprckigali.ac.rw</span>
+      </div>
+      <hr />
+    </section>
   </div>
 
-  <div class="container mt-5 mb-5">
-    <div class="card shadow-lg">
-      <div class="card-header text-white text-center" style="background-color: #0093D0;">
-        <h3>RECOGNITION OF PRIOR LEARNING (RPL) Application Form</h3>
-        <p>For Masonry and Domestic Electricity Installation</p>
-      </div>
-      <div class="card-body p-4">
-        <form id="rplForm" enctype="multipart/form-data">
-          <div class="row g-3">
-            <div class="col-12">
-              <label for="fullname" class="form-label">Full Name</label>
-              <input type="text" class="form-control" id="fullname" name="fullname" required>
-              <div class="error-message" id="fullname-error"></div>
-            </div>
-
-            <div class="col-12">
-              <label for="dob" class="form-label">Date of Birth</label>
-              <input type="date" class="form-control" id="dob" name="dob" required>
-              <div class="error-message" id="dob-error"></div>
-            </div>
-
-            <div class="col-12">
-              <label for="nationality" class="form-label">Nationality</label>
-              <select class="form-select" id="nationality" name="nationality" required>
-                <option value="">Choose...</option>
-                <option value="Rwandan">Rwandan</option>
-                <option value="Resident">Rwandan Resident</option>
-              </select>
-              <div class="error-message" id="nationality-error"></div>
-            </div>
-
-            <div class="col-12">
-              <label for="nin" class="form-label">National ID / Passport Number</label>
-              <input type="text" class="form-control" id="nin" name="nin" pattern="\d{16}" minlength="16" maxlength="16" title="Enter exactly 16 digits" required>
-              <div class="error-message" id="nin-error"></div>
-            </div>
-
-            <div class="col-12">
-              <label for="trade" class="form-label">Field of Assessment</label>
-              <select class="form-select" id="trade" name="trade" required>
-                <option value="">Choose...</option>
-                <option value="Masonry">Masonry</option>
-                <option value="Domestic Electricity Installation">Domestic Electricity Installation</option>
-              </select>
-              <div class="error-message" id="trade-error"></div>
-            </div>
-
-            <div class="col-12">
-              <label for="experience" class="form-label">Years of Experience</label>
-              <input type="number" class="form-control" id="experience" name="experience" min="2" required>
-              <div class="error-message" id="experience-error"></div>
-            </div>
-
-            <div class="col-12">
-              <label for="employer" class="form-label">Employer / Business Name</label>
-              <input type="text" class="form-control" id="employer" name="employer" required>
-              <div class="error-message" id="employer-error"></div>
-            </div>
-
-            <div class="col-12">
-              <label for="union" class="form-label">Member of Trade Union / Association?</label>
-              <select class="form-select" id="union" name="union" required>
-                <option value="">Choose...</option>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-              </select>
-              <div class="error-message" id="union-error"></div>
-            </div>
-
-            <div class="col-12" id="unionNameContainer">
-              <label for="unionName" class="form-label">If Yes, Specify Union/Association Name</label>
-              <input type="text" class="form-control" id="unionName" name="unionName">
-              <div class="error-message" id="unionName-error"></div>
-            </div>
-
-            <div class="col-12">
-              <label for="phone" class="form-label">Phone Number</label>
-              <input type="tel" class="form-control" id="phone" name="phone" pattern="\d{10}" minlength="10" maxlength="10" title="Enter exactly 10 digits" required>
-              <div class="error-message" id="phone-error"></div>
-            </div>
-
-            <div class="col-12">
-              <label for="email" class="form-label">Email Address</label>
-              <input type="email" class="form-control" id="email" name="email">
-              <div class="error-message" id="email-error"></div>
-            </div>
-
-            <div class="col-12">
-              <label for="id_doc" class="form-label">Upload National ID / Passport</label>
-              <input class="form-control" type="file" id="id_doc" name="id_doc" accept=".pdf,.jpg,.jpeg,.png" required>
-              <div class="small text-muted mt-1">Allowed: PDF, JPG, PNG (Max 2MB)</div>
-              <div class="error-message" id="id_doc-error"></div>
-            </div>
-
-            <div class="col-12">
-              <label for="recommendation" class="form-label">Upload Recommendation / Certificate</label>
-              <input class="form-control" type="file" id="recommendation" name="recommendation" accept=".pdf,.jpg,.jpeg,.png" required>
-              <div class="small text-muted mt-1">Allowed: PDF, JPG, PNG (Max 2MB)</div>
-              <div class="error-message" id="recommendation-error"></div>
-            </div>
-
-            <div class="col-12 text-center mt-4">
-              <button type="submit" class="btn btn-success px-5" id="submitBtn">
-                Submit Application
-                <div class="spinner-border spinner-border-sm loading-spinner" id="loadingSpinner" role="status">
-                  <span class="visually-hidden">Loading...</span>
-                </div>
-              </button>
-            </div>
-          </div>
-        </form>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-column">
+        <h3 class="footer-title">&copy; 2025 RP Kigali College. All rights reserved.</h3>
       </div>
     </div>
-  </div>
+  </footer>
 
+  <!-- JavaScript -->
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const form = document.getElementById("rplForm");
-      const unionSelect = document.getElementById("union");
-      const unionNameContainer = document.getElementById("unionNameContainer");
-      const successAlert = document.getElementById("successAlert");
-      const successMessage = document.getElementById("successMessage");
-      const loadingSpinner = document.getElementById("loadingSpinner");
-      const submitBtn = document.getElementById("submitBtn");
-
-      unionSelect.addEventListener("change", function() {
-        if (this.value === "Yes") {
-          unionNameContainer.style.display = "block";
-          document.getElementById("unionName").setAttribute("required", "required");
-        } else {
-          unionNameContainer.style.display = "none";
-          document.getElementById("unionName").removeAttribute("required");
-        }
-      });
-
-      if (unionSelect.value === "Yes") {
-        unionNameContainer.style.display = "block";
-      } else {
-        unionNameContainer.style.display = "none";
-      }
-
-      function validateFileSize(fileInput) {
-        const maxSize = 2 * 1024 * 1024;
-        const fileId = fileInput.id;
-        const errorDiv = document.getElementById(fileId + "-error");
-
-        if (fileInput.files.length > 0) {
-          const fileSize = fileInput.files[0].size;
-          if (fileSize > maxSize) {
-            errorDiv.textContent = "File size exceeds the maximum allowed size of 2MB.";
-            return false;
-          } else {
-            errorDiv.textContent = "";
-            return true;
-          }
-        }
-        return true;
-      }
-
-      document.getElementById("id_doc").addEventListener("change", function() {
-        validateFileSize(this);
-      });
-
-      document.getElementById("recommendation").addEventListener("change", function() {
-        validateFileSize(this);
-      });
-
-      form.addEventListener("submit", function(e) {
-        e.preventDefault();
-
-        const errorElements = document.querySelectorAll(".error-message");
-        errorElements.forEach(el => el.textContent = "");
-
-        const idDocValid = validateFileSize(document.getElementById("id_doc"));
-        const recValid = validateFileSize(document.getElementById("recommendation"));
-
-        if (!idDocValid || !recValid) {
-          return;
-        }
-
-        loadingSpinner.style.display = "inline-block";
-        submitBtn.disabled = true;
-
-        const formData = new FormData(form);
-
-        fetch("insert.php", {
-          method: "POST",
-          body: formData
-        })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error("Network response was not ok");
-          }
-          return response.json();
-        })
-        .then(result => {
-          loadingSpinner.style.display = "none";
-          submitBtn.disabled = false;
-
-          if (result.success) {
-            successMessage.textContent = result.message;
-            successAlert.style.display = "block";
-            setTimeout(() => {
-              successAlert.style.display = "none";
-            }, 5000);
-            form.reset();
-          } else {
-            alert("Error: " + result.message);
-          }
-        })
-        .catch(error => {
-          loadingSpinner.style.display = "none";
-          submitBtn.disabled = false;
-          console.error("Error:", error);
-          alert("An unexpected error occurred. Please try again.");
-        });
-      });
+    document.querySelector('.menu-toggle').addEventListener('click', function () {
+      document.querySelector('.navbar-right').classList.toggle('active');
     });
   </script>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

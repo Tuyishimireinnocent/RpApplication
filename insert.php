@@ -17,10 +17,10 @@ function validateFile($file) {
         ];
     }
 
-    $maxSize = 2 * 1024 * 1024; // 2MB
+    $maxSize = 1 * 1024 * 1024; // 2MB
     $allowedExtensions = ['pdf', 'jpg', 'jpeg', 'png'];
     if ($file['size'] > $maxSize) {
-        return ['valid' => false, 'message' => 'File size exceeds 2MB.'];
+        return ['valid' => false, 'message' => 'File size exceeds 1MB.'];
     }
     $extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
     if (!in_array($extension, $allowedExtensions)) {
@@ -140,15 +140,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $uploadDir = 'uploads/';
         if (!is_dir($uploadDir)) mkdir($uploadDir, 0755, true);
         $timestamp = time();
-        $idDocPath = $uploadDir . $timestamp . '_id_' . basename($_FILES['id_doc']['name']);
-        $recPath = $uploadDir . $timestamp . '_rec_' . basename($_FILES['recommendation']['name']);
-        move_uploaded_file($_FILES['id_doc']['tmp_name'], $idDocPath);
-        move_uploaded_file($_FILES['recommendation']['tmp_name'], $recPath);
-
+        
         $pdo->beginTransaction();
         $stmt = $pdo->prepare("INSERT INTO candidates (full_name, date_of_birth, nationality, national_id_passport, field_of_assessment, years_experience, employer_name, trade_union_member, trade_union_name, phone, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->execute([$fullName, $dob, $nationality, $nid, $trade, $experience, $employer, $union, $unionName, $phone, $email]);
         $candidateId = $pdo->lastInsertId();
+        $idDocPath = $uploadDir . $timestamp . '_id_' .MD5($candidateId. basename($_FILES['id_doc']['name'])).".".pathinfo(basename($_FILES['id_doc']['name']), PATHINFO_EXTENSION);
+        $recPath = $uploadDir . $timestamp . '_rec_' . MD5($candidateId.basename($_FILES['recommendation']['name'])).".".pathinfo(basename($_FILES['recommendation']['name']),PATHINFO_EXTENSION);
+        move_uploaded_file($_FILES['id_doc']['tmp_name'], $idDocPath);
+        move_uploaded_file($_FILES['recommendation']['tmp_name'], $recPath);
 
         $docStmt = $pdo->prepare("INSERT INTO documents (candidate_id, id_document_path, recommendation_path) VALUES (?, ?, ?)");
         $docStmt->execute([$candidateId, $idDocPath, $recPath]);
