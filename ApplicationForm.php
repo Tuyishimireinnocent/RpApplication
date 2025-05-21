@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>RPL Application Form</title>
+  <title>Ifishi yo Kwiyandikisha mu RPL</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
@@ -182,7 +182,7 @@
     }
 
     .logo img {
-      height: 30px;
+      height: 60px;
     }
 
     .navbar-right {
@@ -250,12 +250,12 @@
         <i class="fas fa-bars"></i>
       </div>
       <a href="#" class="logo">
-        <img src="rplogo.png" alt="IPRC Kigali Logo" />
+        <img src="rplogo1.png" alt="IPRC Kigali Logo" />
         RP KIGALI College
       </a>
     </div>
     <div class="navbar-right">
-      <a href="index.php" class="nav-link"><i class="fas fa-home"></i><span>BackToHome</span></a>
+      <a href="index.php" class="nav-link"><i class="fas fa-home"></i><span>Subira Ahabanza</span></a>
     </div>
   </nav>
 
@@ -268,106 +268,106 @@
   <div class="container">
     <div class="form-container">
       <div class="form-header">
-        <h2>RECOGNITION OF PRIOR LEARNING (RPL) Application form</h2>
-        <p>For Masonry and Domestic Electricity Installation</p>
+        <h3>IFISHI YO KWIYANDIKISHA RPL (Recognition of Prior Learning)</h3>
+        <p>Ku bwubatsi n'amashanyarazi</p>
       </div>
       
       <div class="form-body">
         <form id="rplForm" enctype="multipart/form-data">
           <div class="form-group">
-            <label for="fullname" class="form-label">Full Name</label>
+            <label for="fullname" class="form-label">Amazina yombi</label>
             <input type="text" class="form-control" id="fullname" name="fullname" required>
             <div class="error-message" id="fullname-error"></div>
           </div>
 
           <div class="form-group">
-            <label for="dob" class="form-label">Date of Birth</label>
+            <label for="dob" class="form-label">Itariki y'amavuko</label>
             <input type="date" class="form-control" id="dob" name="dob" required>
             <div class="error-message" id="dob-error"></div>
           </div>
 
           <div class="form-group">
-            <label for="nationality" class="form-label">Nationality</label>
+            <label for="nationality" class="form-label">Ubwenegihugu</label>
             <select class="form-select" id="nationality" name="nationality" required>
-              <option value="">Choose...</option>
-              <option value="Rwandan">Rwandan</option>
-              <option value="Resident">Rwandan Resident</option>
+              <option value="">Hitamo...</option>
+              <option value="Rwandan">Umunyarwanda</option>
+              <option value="Resident">Umunyamahanga uba mu Rwanda</option>
             </select>
             <div class="error-message" id="nationality-error"></div>
           </div>
 
           <div class="form-group">
-            <label for="nin" class="form-label">National ID / Passport Number</label>
+            <label for="nin" class="form-label">Numero y'Indangamuntu / Pasiporo</label>
             <input type="text" class="form-control" id="nin" name="nin" pattern="\d{16}" minlength="16" maxlength="16" title="Enter exactly 16 digits" required>
             <div class="error-message" id="nin-error"></div>
           </div>
 
           <div class="form-group">
-            <label for="trade" class="form-label">Field of Assessment</label>
+            <label for="trade" class="form-label">Ishami</label>
             <select class="form-select" id="trade" name="trade" required>
-              <option value="">Choose...</option>
-              <option value="Masonry">Masonry</option>
-              <option value="Domestic Electricity Installation">Domestic Electricity Installation</option>
+              <option value="">Hitamo...</option>
+              <option value="Masonry">Ubwubatsi</option>
+              <option value="Domestic Electricity Installation">Amashanyarazi</option>
             </select>
             <div class="error-message" id="trade-error"></div>
           </div>
 
           <div class="form-group">
-            <label for="experience" class="form-label">Years of Experience</label>
+            <label for="experience" class="form-label">Imyaka y'uburambe mu kazi</label>
             <input type="number" class="form-control" id="experience" name="experience" min="2" required>
             <div class="error-message" id="experience-error"></div>
           </div>
 
           <div class="form-group">
-            <label for="employer" class="form-label">Employer / Business Name</label>
+            <label for="employer" class="form-label">Izina ry'umukoresha / Isosiyete</label>
             <input type="text" class="form-control" id="employer" name="employer" required>
             <div class="error-message" id="employer-error"></div>
           </div>
 
           <div class="form-group">
-            <label for="union" class="form-label">Member of Trade Union / Association?</label>
+            <label for="union" class="form-label">ufite Itsinda ubamo / ishyirahamwe?</label>
             <select class="form-select" id="union" name="union" required>
-              <option value="">Choose...</option>
-              <option value="Yes">Yes</option>
-              <option value="No">No</option>
+              <option value="">Hitamo...</option>
+              <option value="Yes">Yego</option>
+              <option value="No">oya</option>
             </select>
             <div class="error-message" id="union-error"></div>
           </div>
 
           <div class="form-group" id="unionNameContainer">
-            <label for="unionName" class="form-label">If Yes, Specify Union/Association Name</label>
+            <label for="unionName" class="form-label">Niba ari Yego, andika izina ry'ishyirahamwe ubamo</label>
             <input type="text" class="form-control" id="unionName" name="unionName">
             <div class="error-message" id="unionName-error"></div>
           </div>
 
           <div class="form-group">
-            <label for="phone" class="form-label">Phone Number</label>
+            <label for="phone" class="form-label">Numero ya telefone</label>
             <input type="tel" class="form-control" id="phone" name="phone" pattern="\d{10}" minlength="10" maxlength="10" title="Enter exactly 10 digits" required>
             <div class="error-message" id="phone-error"></div>
           </div>
 
           <div class="form-group">
-            <label for="email" class="form-label">Email Address</label>
+            <label for="email" class="form-label">imeli/Email</label>
             <input type="email" class="form-control" id="email" name="email">
             <div class="error-message" id="email-error"></div>
           </div>
 
           <div class="form-group">
-            <label for="id_doc" class="form-label">Upload National ID / Passport</label>
+            <label for="id_doc" class="form-label">Indangamuntu/pasiporo</label>
             <input class="form-control form-file" type="file" id="id_doc" name="id_doc" accept=".pdf,.jpg,.jpeg,.png" required>
-            <div class="help-text">Allowed: PDF, JPG, PNG (Max 2MB)</div>
+            <div class="help-text">Hemewe: PDF, JPG, PNG (Max 1MB)</div>
             <div class="error-message" id="id_doc-error"></div>
           </div>
 
           <div class="form-group">
-            <label for="recommendation" class="form-label">Upload Recommendation / Certificate</label>
+            <label for="recommendation" class="form-label">icyemezo cy'umukoresha/ gitanzwe n'inzego z'ibanze</label>
             <input class="form-control form-file" type="file" id="recommendation" name="recommendation" accept=".pdf,.jpg,.jpeg,.png" required>
-            <div class="help-text">Allowed: PDF, JPG, PNG (Max 2MB)</div>
+            <div class="help-text">Hemewe: PDF, JPG, PNG (Max 1MB)</div>
             <div class="error-message" id="recommendation-error"></div>
           </div>
 
           <button type="submit" class="submit-btn" id="submitBtn">
-            Submit Application
+            Bika Imyirondoro yawe
             <div class="spinner-border spinner-border-sm loading-spinner" id="loadingSpinner" role="status">
               <span class="visually-hidden">Loading...</span>
             </div>
@@ -379,7 +379,7 @@
 
   <!-- Footer -->
   <footer class="footer">
-    &copy; 2025 RP Kigali College. All rights reserved.
+    &copy; © 2025 Ishuri Rikuru RP Kigali. Uburenganzira bwose burabitswe.
   </footer>
 
   <script>

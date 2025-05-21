@@ -9,23 +9,40 @@ use PHPMailer\PHPMailer\Exception;
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-function validateFile($file) {
-    if (!isset($file) || $file['error'] != UPLOAD_ERR_OK) {
-        return [
-            'valid' => false,
-            'message' => 'File upload error: ' . uploadErrorMessage($file['error'] ?? UPLOAD_ERR_NO_FILE)
-        ];
+function generateRegistrationNumber($pdo) {
+    $year = date('y'); // e.g. 25 for 2025
+    $prefix = $year . 'VS';
+
+    $stmt = $pdo->prepare("SELECT registration_number FROM candidates WHERE registration_number LIKE ? ORDER BY registration_number DESC LIMIT 1");
+    $stmt->execute([$prefix . '%']);
+    $last = $stmt->fetchColumn();
+
+    if ($last) {
+        $lastSeq = (int)substr($last, 4); // Get the numeric part
+        $nextSeq = $lastSeq + 1;
+    } else {
+        $nextSeq = 1;
     }
 
-    $maxSize = 1 * 1024 * 1024; // 2MB
+    return $prefix . str_pad($nextSeq, 5, '0', STR_PAD_LEFT);
+}
+
+function validateFile($file) {
+    if (!isset($file) || $file['error'] != UPLOAD_ERR_OK) {
+        return ['valid' => false, 'message' => 'File upload error: ' . uploadErrorMessage($file['error'] ?? UPLOAD_ERR_NO_FILE)];
+    }
+
+    $maxSize = 1 * 1024 * 1024; // 1MB
     $allowedExtensions = ['pdf', 'jpg', 'jpeg', 'png'];
     if ($file['size'] > $maxSize) {
         return ['valid' => false, 'message' => 'File size exceeds 1MB.'];
     }
+
     $extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
     if (!in_array($extension, $allowedExtensions)) {
         return ['valid' => false, 'message' => 'Invalid file type.'];
     }
+
     return ['valid' => true];
 }
 
@@ -42,14 +59,9 @@ function uploadErrorMessage($code) {
     return $errors[$code] ?? 'Unknown upload error';
 }
 
-function sendEmailNotification($email, $fullName) {
+function sendEmailNotification($email, $fullName, $registrationNumber) {
     $mail = new PHPMailer(true);
     try {
-        $mail->SMTPDebug = 2;
-        $mail->Debugoutput = function($str, $level) {
-            error_log("PHPMailer [Level $level]: $str");
-        };
-
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
@@ -58,15 +70,13 @@ function sendEmailNotification($email, $fullName) {
         $mail->SMTPSecure = 'tls';
         $mail->Port = 587;
 
-        $mail->setFrom('tuyishimireinnocent2002@gmail.com', 'Skills Application Team');
+        $mail->setFrom('tuyishimireinnocent2002@gmail.com', 'Rp kigali college Application Team');
         $mail->addAddress($email, $fullName);
-        $mail->Subject = 'Application Received';
-        $mail->Body    = "Dear $fullName,\n\nThank you for submitting your application.\n\nBest Regards,\nTeam";
+        $mail->Subject = 'Gusaba Byakiriwe';
+        $mail->Body = "Dear $fullName,\n\nMUrakoze Kwiyandikisha.\nNimero ikuranga nk'umunyeshuri  ni: $registrationNumber.\n\nNyamuneka Bika iyi nimero kuko izakenerwa.\n\nMurakoze\nRp kigali college Application Team";
 
         $mail->send();
-        error_log("PHPMailer: Message sent successfully");
         return true;
-
     } catch (Exception $e) {
         error_log("PHPMailer error: {$mail->ErrorInfo}");
         return false;
@@ -75,9 +85,7 @@ function sendEmailNotification($email, $fullName) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
-        if (!isset($pdo)) {
-            throw new Exception("Database connection not established.");
-        }
+        if (!isset($pdo)) throw new Exception("Database connection not established.");
 
         $fields = ['fullname', 'dob', 'nationality', 'nin', 'trade', 'experience', 'employer', 'union', 'phone'];
         $missing = [];
@@ -108,20 +116,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $phone = $_POST['phone'];
         $email = $_POST['email'] ?? null;
 
-        // Check for unique fields
         $stmt = $pdo->prepare("SELECT * FROM candidates WHERE national_id_passport = ? OR phone = ? OR (email IS NOT NULL AND email = ?)");
         $stmt->execute([$nid, $phone, $email]);
         $existing = $stmt->fetch();
 
         if ($existing) {
             if ($existing['national_id_passport'] == $nid) {
-                echo json_encode(['success' => false, 'message' => 'NIN already exists.']);
+                echo json_encode(['success' => false, 'message' => 'indangamuntu isanzwe ihari.']);
             } elseif ($existing['phone'] == $phone) {
-                echo json_encode(['success' => false, 'message' => 'Phone number already exists.']);
+                echo json_encode(['success' => false, 'message' => 'Numero ya terefone isanzwe ihari.']);
             } elseif (!empty($email) && $existing['email'] == $email) {
-                echo json_encode(['success' => false, 'message' => 'Email already exists.']);
+                echo json_encode(['success' => false, 'message' => 'imeli yawe isanzwe ihari.']);
             } else {
-                echo json_encode(['success' => false, 'message' => 'Duplicate entry found.']);
+                echo json_encode(['success' => false, 'message' => 'Inyandiko ebyiri zabonetse']);
             }
             exit;
         }
@@ -137,27 +144,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
 
+        $registrationNumber = generateRegistrationNumber($pdo);
+
         $uploadDir = 'uploads/';
         if (!is_dir($uploadDir)) mkdir($uploadDir, 0755, true);
         $timestamp = time();
-        
+
         $pdo->beginTransaction();
-        $stmt = $pdo->prepare("INSERT INTO candidates (full_name, date_of_birth, nationality, national_id_passport, field_of_assessment, years_experience, employer_name, trade_union_member, trade_union_name, phone, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->execute([$fullName, $dob, $nationality, $nid, $trade, $experience, $employer, $union, $unionName, $phone, $email]);
+        $stmt = $pdo->prepare("INSERT INTO candidates (registration_number, full_name, date_of_birth, nationality, national_id_passport, field_of_assessment, years_experience, employer_name, trade_union_member, trade_union_name, phone, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->execute([$registrationNumber, $fullName, $dob, $nationality, $nid, $trade, $experience, $employer, $union, $unionName, $phone, $email]);
         $candidateId = $pdo->lastInsertId();
-        $idDocPath = $uploadDir . $timestamp . '_id_' .MD5($candidateId. basename($_FILES['id_doc']['name'])).".".pathinfo(basename($_FILES['id_doc']['name']), PATHINFO_EXTENSION);
-        $recPath = $uploadDir . $timestamp . '_rec_' . MD5($candidateId.basename($_FILES['recommendation']['name'])).".".pathinfo(basename($_FILES['recommendation']['name']),PATHINFO_EXTENSION);
+
+        $idDocPath = $uploadDir . $timestamp . '_id_' . md5($candidateId . basename($_FILES['id_doc']['name'])) . "." . pathinfo(basename($_FILES['id_doc']['name']), PATHINFO_EXTENSION);
+        $recPath = $uploadDir . $timestamp . '_rec_' . md5($candidateId . basename($_FILES['recommendation']['name'])) . "." . pathinfo(basename($_FILES['recommendation']['name']), PATHINFO_EXTENSION);
         move_uploaded_file($_FILES['id_doc']['tmp_name'], $idDocPath);
         move_uploaded_file($_FILES['recommendation']['tmp_name'], $recPath);
 
         $docStmt = $pdo->prepare("INSERT INTO documents (candidate_id, id_document_path, recommendation_path) VALUES (?, ?, ?)");
         $docStmt->execute([$candidateId, $idDocPath, $recPath]);
+
         $pdo->commit();
 
-        $msg = 'Your Application Received successfully.';
+        $msg = "Gusaba byatanzwe neza. Inomero yawe yo kwiyandikisha ni $registrationNumber.";
         if ($email) {
-            $sent = sendEmailNotification($email, $fullName);
-            $msg .= $sent ? ' Email confirmation sent.' : ' Email failed.';
+            $sent = sendEmailNotification($email, $fullName, $registrationNumber);
+            $msg .= $sent ? ' Kwemeza imeri byoherejwe.' : ' Imeri yananiwe.';
         }
 
         echo json_encode(['success' => true, 'message' => $msg]);

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="rw">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -14,7 +14,14 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
+    html, body {
+      height: 100%;
+    }
+
     body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
       background-color: #f5f5f5;
       line-height: 1.6;
     }
@@ -39,8 +46,8 @@
     .menu-toggle {
       font-size: 24px;
       cursor: pointer;
-      margin-right: 15px;
       display: none;
+      margin-left: auto;
     }
 
     .logo {
@@ -51,10 +58,11 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      padding: 10px;
     }
 
     .logo img {
-      height: 30px;
+      height: 60px;
     }
 
     .navbar-right {
@@ -76,6 +84,7 @@
     }
 
     .main-container {
+      flex: 1;
       max-width: 1200px;
       margin: 0 auto;
       padding: 20px;
@@ -178,7 +187,8 @@
       background-color: #1e3c5a;
       color: white;
       padding: 30px 20px;
-      margin-top: 30px;
+      margin-top: auto;
+      width: 100%;
     }
 
     .footer-container {
@@ -233,15 +243,21 @@
         display: none;
         flex-direction: column;
         background-color: #1e3c5a;
-        padding: 10px;
+        padding: 20px;
         position: absolute;
-        top: 60px;
-        right: 20px;
-        border-radius: 5px;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       }
 
       .navbar-right.active {
         display: flex;
+      }
+
+      .nav-link {
+        padding: 10px 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       }
 
       .menu-toggle {
@@ -251,6 +267,10 @@
       .footer-container {
         flex-direction: column;
         text-align: center;
+      }
+
+      .footer {
+        padding: 20px;
       }
     }
 
@@ -286,6 +306,14 @@
         font-size: 13px;
         padding: 8px 16px;
       }
+
+      .footer {
+        padding: 15px;
+      }
+
+      .footer-title {
+        font-size: 14px;
+      }
     }
   </style>
 </head>
@@ -293,53 +321,51 @@
   <!-- Navigation -->
   <nav class="navbar">
     <div class="navbar-left">
+      <a href="#" class="logo">
+        <img src="rplogo1.png" alt="Ikirangantego cya IPRC Kigali" />
+        RP KIGALI college
+      </a>
       <div class="menu-toggle">
         <i class="fas fa-bars"></i>
       </div>
-      <a href="#" class="logo">
-        <img src="rplogo.png" alt="IPRC Kigali Logo" />
-        RP KIGALI College
-      </a>
     </div>
-   <div class="navbar-right">
-      <a href="index.php" class="nav-link"><i class="fas fa-home"></i><span>Home</span></a>
-      <a href="about.php" class="nav-link"><i class="fas fa-info-circle"></i><span>About</span></a>
-      <!--<a href="contact.html" class="nav-link"><i class="fas fa-envelope"></i><span>Contact</span></a>
-      <a href="#" class="nav-link"><i class="fas fa-sign-in-alt"></i><span>Signin</span></a>
-  -->
+    <div class="navbar-right">
+      <a href="index.php" class="nav-link"><i class="fas fa-home"></i><span>Ahabanza</span></a>
+      <a href="about.php" class="nav-link"><i class="fas fa-info-circle"></i><span>Ibyerekeye</span></a>
     </div>
   </nav>
 
   <!-- Main Content -->
   <div class="main-container">
     <!-- Hero Section -->
-    <section class="hero-section">
-      <div class="course-tag">
-        <i class="fas fa-book"></i> RPL (Recognition of Prior Learning) Application
-      </div>
-      <h1 class="hero-title">
-        RP Kigali College, in partnership with Rwanda TVET Board through the Skills Development Fund (SDF), invites applicants for Recognition of Prior Learning (RPL) in Masonry and Domestic Electricity Installation.
-      </h1>
-      <div class="application-info">
-        Applications are open until <strong>30<sup>th</sup> May 2025</strong>. Submit online or deliver hard copies to RP Kigali College.
-      </div>
-      <div class="application-instructions">
-        Candidates must be Rwandan or residents, at least 18 years old, with 2+ years of experience. Being a member of a registered trade union or employer’s association is an added value.
-      </div>
-      <div class="login-info">
-        All assessment, certification, lunch, and transport costs will be covered by RP Kigali College through the SDF project.
-      </div>
-      <a href="ApplicationForm.php" class="create-account-btn">
-        <i class="fas fa-user-pen"></i> ApplyNow
-      </a>
-    </section>
+    
+  
+<!-- Hero Section -->
+<!-- Hero Section -->
+<section class="hero-section" style="font-family: Tahoma; font-size: 14px;">
+  <div class="course-tag" style="font-size: 13px;">
+    <i class="fas fa-book"></i> Gusaba Kwemererwa Kwiga binyuze muri RPL
+  </div>
+  <p class="hero-title" style="font-size: 18px;">
+    Ishuri Rikuru ry’Imyuga n’Ubumenyingiro, Koleji ya Kigali (RP-Kigali College), rifatanyije na Rwanda TVET Board binyuze mu mushinga wa Skills Development Fund (SDF),<br> ritumira abantu ku giti cyabo cyangwa abakora mu mashyirahamwe bafite uburambe mu mirimo y’Ubwubatsi cyangwa Amashanyarazi ariko badafite impamyabushobozi, kwiyandikisha ngo bakorerwe isuzumabushobozi rishingiye ku bunararibonye (RPL) kugira ngo bahabwe impamyabushobozi ibihamya.
+  </p>
+  <div class="application-info" style="font-size: 13px;">
+    Kwiyandikisha bikorwa hifashishijwe urubuga cyangwa ku Ishuri Rikuru ry’Imyuga n’Ubumenyingiro, Koleji ya Kigali. Igihe ntarengwa cyo kwiyandikisha ni tariki ya <strong>30 Gicurasi 2025</strong>. Ibikorwa bizajya bikorerwa kuva ku wa mbere kugeza ku wa gatanu mu masaha y’akazi.
+  </div>
+
+  <a href="ApplicationForm.php" class="create-account-btn" style="font-size: 13px;">
+    <i class="fas fa-user-pen"></i> kanda aha wiyandikishe gusaba kwiga
+  </a>
+</section>
+
+
 
     <!-- Contact Section -->
     <section class="contact-section">
-      <h2 class="contact-title">Contact Information</h2>
+      <h2 class="contact-title">Kubindi bisobanuro:</h2>
       <div class="contact-item">
         <i class="fas fa-map-marker-alt"></i>
-        <span>RP Head Office, IPRC KIGALI</span>
+        <span>Ibiro Bikuru bya RP, IPRC KIGALI</span>
       </div>
       <div class="contact-item">
         <i class="fas fa-phone"></i>
@@ -361,7 +387,7 @@
   <footer class="footer">
     <div class="footer-container">
       <div class="footer-column">
-        <h3 class="footer-title">&copy; 2025 RP Kigali College. All rights reserved.</h3>
+        <h3 class="footer-title">&copy; 2025 Ishuri Rikuru RP Kigali. Uburenganzira bwose burabitswe.</h3>
       </div>
     </div>
   </footer>

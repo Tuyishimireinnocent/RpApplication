@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>About Us - IPRC KIGALI</title>
+  <title>Ibyerekeye RP Kigali</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
   <style>
@@ -14,7 +14,14 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
+    html, body {
+      height: 100%;
+    }
+
     body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
       background-color: #f5f5f5;
       line-height: 1.6;
     }
@@ -50,11 +57,11 @@
       font-size: 18px;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 20px;
     }
 
     .logo img {
-      height: 30px;
+      height: 60px;
     }
 
     .navbar-right {
@@ -76,6 +83,7 @@
     }
 
     .about-container {
+      flex: 1;
       max-width: 1000px;
       margin: 40px auto;
       padding: 30px;
@@ -101,7 +109,8 @@
       background-color: #1e3c5a;
       color: white;
       padding: 30px 20px;
-      margin-top: 30px;
+      margin-top: auto;
+      width: 100%;
     }
 
     .footer-container {
@@ -145,7 +154,43 @@
       }
 
       .about-container {
+        margin: 20px auto;
         padding: 20px;
+      }
+
+      .about-title {
+        font-size: 24px;
+      }
+
+      .footer-container {
+        flex-direction: column;
+      }
+
+      .footer {
+        padding: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .about-container {
+        margin: 15px;
+        padding: 15px;
+      }
+
+      .about-title {
+        font-size: 22px;
+      }
+
+      .about-text {
+        font-size: 15px;
+      }
+
+      .footer {
+        padding: 15px;
+      }
+
+      .footer-title {
+        font-size: 16px;
       }
     }
   </style>
@@ -156,45 +201,49 @@
     <div class="navbar-left">
       <div class="menu-toggle"><i class="fas fa-bars"></i></div>
       <a href="#" class="logo">
-        <img src="rplogo.png" alt="IPRC Kigali Logo" />
+        <img src="rplogo1.png" alt="IPRC Kigali Logo" />
         RP KIGALI College
       </a>
     </div>
     <div class="navbar-right">
-      <a href="index.php" class="nav-link"><i class="fas fa-home"></i><span>Home</span></a>
-      <a href="about.php" class="nav-link"><i class="fas fa-info-circle"></i><span>About</span></a>
-      <!--<a href="contact.html" class="nav-link"><i class="fas fa-envelope"></i><span>Contact</span></a>
-      <a href="#" class="nav-link"><i class="fas fa-sign-in-alt"></i><span>Signin</span></a>
-  -->
+      <a href="index.php" class="nav-link"><i class="fas fa-home"></i><span>Ahabanza</span></a>
+      <a href="about.php" class="nav-link"><i class="fas fa-info-circle"></i><span>Ibyerekeye</span></a>
     </div>
   </nav>
 
   <!-- About Us Content -->
-  <div class="about-container">
-    <h1 class="about-title">About RP Kigali College</h1>
+  <!-- About Us Content -->
+<div class="about-container">
+  <h1 class="about-title">Ibyerekeye Ishuri Rikuru rya RP Kigali</h1>
 
-    <p class="about-text">
-      RP Kigali College is a Technical and Vocational Education and Training (TVET) institution under Rwanda Polytechnic. It is committed to providing high-quality skills through practical training to promote workforce development in Rwanda.
-    </p>
+  <p class="about-text">
+    Ishuri Rikuru ry’Imyuga n’Ubumenyingiro, Koleji ya Kigali (RP-Kigali College), ni ishuri rya Leta riyobowe na Rwanda Polytechnic, rifite intego yo guteza imbere imyuga n'ubumenyingiro biciye mu myigire ishingiye ku bumenyi ngiro.
+  </p>
 
-    <p class="about-text">
-      In partnership with the Rwanda TVET Board and through support from the Skills Development Fund (SDF), the college is implementing the Recognition of Prior Learning (RPL) initiative. This program is specifically aimed at skilled individuals working in the fields of <strong>Masonry</strong> and <strong>Domestic Electricity Installation</strong> who do not yet possess formal certification.
-    </p>
+  <p class="about-text">
+    Ryashyizeho gahunda yiswe <strong>Recognition of Prior Learning (RPL)</strong> ku bufatanye na Rwanda TVET Board (RTB), binyuze mu mushinga wa <strong>Skills Development Fund (SDF)</strong>. Iyi gahunda igamije gufasha abantu bafite uburambe mu mirimo y’Ubwubatsi n’Amashanyarazi ariko batarigeze babona impamyabushobozi yemewe.
+  </p>
 
-    <p class="about-text">
-      The RPL program offers these individuals an opportunity to be assessed and certified based on the experience and skills they have acquired over time. This initiative supports national goals of upskilling the workforce and providing equitable access to formal recognition and qualifications.
-    </p>
+  <p class="about-text">
+    Abemerewe kwitabira iyi gahunda ni Abanyarwanda cyangwa ababa mu Rwanda mu buryo bwemewe n’amategeko, bafite imyaka nibura 18, kandi bafite uburambe bw’imyaka ibiri (2) cyangwa irenga mu byo bakora. Kuba umuntu ari mu ishyirahamwe cyangwa akorera sosiyete bikaba ari inyongera nziza.
+  </p>
 
-    <p class="about-text">
-      RP Kigali College continues to lead efforts in vocational innovation and lifelong learning opportunities for Rwandans by promoting both inclusivity and industry relevance in its training programs.
-    </p>
-  </div>
+  <p class="about-text">
+    Abasaba basabwa gutanga kopi y’indangamuntu cyangwa pasiporo, hamwe n’icyemezo cy’umukoresha cyangwa icy’inzego z’ibanze kigaragaza uburambe bafite. Kwiyandikisha bikorwa ku rubuga  cyangwa ku biro bya RP Kigali, bitarenze <strong>30 Gicurasi 2025</strong>.
+  </p>
+
+  <p class="about-text">
+    Amafaranga yose arebana n’isuzumabushobozi, impamyabushobozi, amafunguro na transport azishyurwa na RP Kigali binyuze mu mushinga SDF. Iyi gahunda itanga amahirwe angana kuri bose kugira ngo ubumenyi n’uburambe bifite agaciro mu kubaka ejo hazaza h’umurimo mu Rwanda.
+  </p>
+</div>
+
+
 
   <!-- Footer -->
   <footer class="footer">
     <div class="footer-container">
       <div class="footer-column">
-        <h3 class="footer-title">&copy; 2025 RP Kigali College. All rights reserved.</h3>
+        <h3 class="footer-title">&copy; 2025 Ishuri Rikuru RP Kigali. Uburenganzira bwose burabitswe.</h3>
       </div>
     </div>
   </footer>
